@@ -1,0 +1,9 @@
+.productsContainer {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.productFormModal {
+  background-color: "#fff";
+  width: 50%;
+  margin: 50px auto;
+}
