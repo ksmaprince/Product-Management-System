@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Grid,
@@ -12,21 +12,108 @@ import {
   Typography,
 } from "@mui/material";
 import "./Product.css";
-import { productList } from "../../utils/constant";
 import ProductDetail from "../../components/product/ProductDetail";
 import ProductForm from "../../components/product/ProductForm";
-import useProducts from "./useProducts";
 import LogoutDialog from "../../components/dialogs/LogoutDialog";
+import productService from "../../servies/productService"
+import constant from "../../utils/constant";
+import { useNavigate } from "react-router";
 
 const ProductList = () => {
-  const {
-    isOpen,
-    logoutDialog,
-    setLogoutDialog,
-    handleLogoutDialog,
-    handleOpenModal,
-    setIsOpen,
-  } = useProducts();
+  const [isOpen, setIsOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [logoutDialog, setLogoutDialog] = useState(false);
+  const [productList, setProductList] = useState([]);
+  const navigate = useNavigate()
+  
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
+  }
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  }
+
+  const handleLogoutDialog = () => {
+    setLogoutDialog(true);
+  }
+
+  const logoutApp = () => {
+    localStorage.clear()
+    navigate("/")
+  }
+
+  const loadProducts = async () => {
+    const res = await productService.getAllProducts(localStorage.getItem(constant.KEY))
+    if (res) {
+      if (res.success) {
+        setProductList(res.data)
+      } else {
+        alert(res.error)
+      }
+    }
+  }
+
+  const getProduct = async (id) => {
+    const res = await productService.getProduct(localStorage.getItem(constant.KEY), id)
+    if (res) {
+      if (res.success) {
+        
+      } else {
+        
+      }
+    }
+  }
+
+  const createNewProduct = async (productData) => {
+    const res = await productService.createProduct(localStorage.getItem(constant.KEY), productData)
+    if(res){
+      if(res.success){
+        loadProducts()
+        return true
+      }else{
+        return false
+      }
+    }
+    return false
+  }
+
+  const updateProduct = async (id, productData) => {
+    const res = await productService.updateProduct(localStorage.getItem(constant.KEY), id, productData)
+    if(res){
+      if(res.success){
+        loadProducts()
+        return true
+      }else{
+        return false
+      }
+    }
+    return false
+  }
+
+  const removeProduct = async (id) => {
+    const res = await productService.removeProduct(localStorage.getItem(constant.KEY), id)
+    if (res) {
+      console.log(res)
+      if (res.success) {
+        loadProducts()
+      }else{
+        alert(res.error)
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem(constant.KEY) === null) {
+      navigate("/")
+    } else {
+      loadProducts()
+    }
+  }, [])
 
   return (
     <Grid container className="productsContainer">
@@ -65,7 +152,7 @@ const ProductList = () => {
             <TableBody>
               {productList.map((product) => (
                 <TableRow key={product.id}>
-                  <ProductDetail key={product.id} product={product} />
+                  <ProductDetail key={product.id} product={product} removeProduct={removeProduct} editProduct = {handleOpenModal} />
                 </TableRow>
               ))}
             </TableBody>
@@ -73,10 +160,11 @@ const ProductList = () => {
         </TableContainer>
       </Grid>
 
-      <ProductForm open={isOpen} setIsOpen={setIsOpen} />
+      <ProductForm open={isOpen} setIsOpen={setIsOpen} createNewProduct={createNewProduct} />
       <LogoutDialog
         logoutDialog={logoutDialog}
         setLogoutDialog={setLogoutDialog}
+        logoutApp={logoutApp}
       />
     </Grid>
   );

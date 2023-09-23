@@ -8,10 +8,14 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const ConfirmationDialog = ({ dialogOpen, setDialogOpen }) => {
+const ConfirmationDialog = ({ dialogOpen, setDialogOpen, deleteProduct}) => {
   const handleCloseDialog = () => {
     setDialogOpen(false);
   };
+  const handleYesConfirmDialog = () => {
+    setDialogOpen(false)
+    deleteProduct()
+  }
   return (
     <Dialog open={dialogOpen} onClose={handleCloseDialog}>
       <DialogTitle></DialogTitle>
@@ -23,7 +27,7 @@ const ConfirmationDialog = ({ dialogOpen, setDialogOpen }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button>Yes</Button>
+          <Button onClick={handleYesConfirmDialog}>Yes</Button>
         </DialogActions>
       </Dialog>
     </Dialog>

@@ -7,12 +7,30 @@ import {
   Paper,
   TextField,
 } from "@mui/material";
-import React from "react";
-import useProducts from "../../pages/product/useProducts";
+import React, { useState } from "react";
 import "./../../pages/product/Product.css";
 
-const ProductForm = ({ open, setIsOpen }) => {
-  const { handleProductChange, productData } = useProducts();
+const ProductForm = ({ open, setIsOpen, createNewProduct }) => {
+
+  const [productData, setProductData] = useState({
+    id: "",
+    name: "",
+    price: "",
+    origin: "",
+    isInstock: false,
+  });
+
+  const handleProductChange = (e) => {
+    setProductData({ ...productData, [e.target.name]: e.target.value });
+  };
+
+  const addProduct = () => {
+    if(createNewProduct(productData)){
+      setIsOpen(false)
+    }else{
+      alert("Add New Product Fail !!!")
+    }
+  }
 
   return (
     <Modal
@@ -69,7 +87,7 @@ const ProductForm = ({ open, setIsOpen }) => {
           />
         </Grid>
         <Grid item md={12} mt={3} style={{ flex: 1, textAlign: "center" }}>
-          <Button color="success" variant="contained">
+          <Button color="success" variant="contained" onClick={addProduct}>
             Add Product
           </Button>
         </Grid>

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import authService from "../../servies/authService"
+import constant from "../../utils/constant";
 
 const useLogin = () => {
   const [email, setEmail] = useState("");
@@ -14,9 +16,21 @@ const useLogin = () => {
     setPassword(e.target.value);
   };
 
-  const handleLogin = () => {
-    navigate("/products");
+  const handleLogin = async () => {
+    const res = await authService.login({email, password})
+    if(res){
+      if(res.success){
+        localStorage.setItem(constant.KEY, res.data)
+        navigate("/products");
+      }else{
+        alert(res.error)
+      }
+    }
   };
+  
+  const navigateTo = (path) => {
+    navigate(path)
+  }
 
   return {
     email,
@@ -24,6 +38,7 @@ const useLogin = () => {
     handleEmailChange,
     handlePasswordChange,
     handleLogin,
+    navigateTo
   };
 };
 

@@ -21,7 +21,7 @@ app.post("/signup", (req, res) => {
   user.id = uuidv4();
   db.push(user);
   saveData(COLLECTIONS.USERS);
-  res.send({ succes: true });
+  res.send({ success: true });
 });
 
 app.post("/login", (req, res) => {

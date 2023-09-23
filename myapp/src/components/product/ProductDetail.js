@@ -3,8 +3,13 @@ import React from "react";
 import useProducts from "../../pages/product/useProducts";
 import ConfirmationDialog from "../dialogs/ConfirmationDialog";
 
-const ProductDetail = ({ product }) => {
+const ProductDetail = ({ product, removeProduct, editProduct }) => {
   const { dialogOpen, setDialogOpen, handleOpenDialog } = useProducts();
+
+  const deleteProduct = () => {
+    removeProduct(product.id)
+  }
+
   return (
     <>
       <TableCell>{product.name}</TableCell>
@@ -16,6 +21,7 @@ const ProductDetail = ({ product }) => {
           Delete
         </Button>
         <Button
+        onClick={editProduct}
           style={{ marginLeft: "10px" }}
           variant="outlined"
           color="primary"
@@ -25,6 +31,7 @@ const ProductDetail = ({ product }) => {
         <ConfirmationDialog
           dialogOpen={dialogOpen}
           setDialogOpen={setDialogOpen}
+          deleteProduct={deleteProduct}
         />
       </TableCell>
     </>

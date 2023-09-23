@@ -1,28 +1,33 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:5001/products'
+axios.defaults.baseURL = 'http://localhost:5001'
 
-const getAllProducts = () => {
-    const request = axios.get(baseUrl)
+const getAllProducts = (token) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+    const request = axios.get("/products")
     return request.then(response => response.data)
 }
 
-const getProduct = (id) => {
-    const request = axios.get(`${baseUrl}/${id}`)
+const getProduct = (token, id) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+    const request = axios.get(`/products/${id}`)
     return request.then(response => response.data)
 }
 
-const removeProduct = (id) => {
-    const request = axios.delete(`${baseUrl}/${id}`)
-    return request
-}
-
-const createProduct = (newObject) => {
-    const request = axios.post(baseUrl, newObject)
+const removeProduct = (token, id) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+    const request = axios.delete(`/products/${id}`)
     return request.then(response => response.data)
 }
 
-const updateProduct = (id, newObject) => {
-    const request = axios.put(`${baseUrl}/${id}`, newObject)
+const createProduct = (token, newObject) => {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    const request = axios.post("/products", newObject)
+    return request.then(response => response.data)
+}
+
+const updateProduct = (token, id, newObject) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+    const request = axios.put(`/products/${id}`, newObject)
     return request.then(response => response.data)
 }
 

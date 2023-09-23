@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, TextField, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useLogin from "./useLogin";
 import "./Login.css";
+import constant from "../../utils/constant";
 
 const Login = () => {
   const {
@@ -11,8 +12,14 @@ const Login = () => {
     handleEmailChange,
     handlePasswordChange,
     handleLogin,
+    navigateTo
   } = useLogin();
 
+  useEffect(() => {
+    if(localStorage.getItem(constant.KEY) !== null){
+      navigateTo("/products")
+    }
+  }, [])
   return (
     <div className="loginContainer">
       <Grid container className="loginWrapper">
@@ -32,6 +39,7 @@ const Login = () => {
         </Grid>
         <Grid item md={8} mt={3}>
           <TextField
+           type="password"
             variant="outlined"
             value={password}
             hidden

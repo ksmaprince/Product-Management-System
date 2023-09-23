@@ -1,18 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const useProducts = () => {
-  const [productList, setProductList] = useState([]);
-  const [productData, setProductData] = useState({
-    id: "",
-    name: "",
-    price: "",
-    origin: "",
-    isInstock: false,
-  });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [dialogOpen,setDialogOpen] = useState(false);
-  const [logoutDialog,setLogoutDialog] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [logoutDialog, setLogoutDialog] = useState(false);
+  const navigate = useNavigate()
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -30,14 +24,18 @@ const useProducts = () => {
     setLogoutDialog(true);
   }
 
-  const handleProductChange = (e) => {
-    setProductData({ ...productData, [e.target.name]: e.target.value });
-  };
+
+  const logoutApp = () => {
+    localStorage.clear()
+    navigate("/")
+  }
+
+  const navigateTo = (path) => {
+    navigate(path)
+  }
 
   return {
-    productList,
     isOpen,
-    productData,
     dialogOpen,
     logoutDialog,
     handleLogoutDialog,
@@ -45,9 +43,10 @@ const useProducts = () => {
     setIsOpen,
     setDialogOpen,
     handleOpenModal,
-    handleProductChange,
     handleCloseModal,
-    handleOpenDialog
+    handleOpenDialog,
+    logoutApp,
+    navigateTo
   };
 };
 

@@ -37,6 +37,7 @@ const Register = () => {
             variant="outlined"
             value={password}
             hidden
+            type="password"
             label="Password"
             onChange={handlePasswordChange}
             fullWidth
@@ -47,6 +48,7 @@ const Register = () => {
           <TextField
             variant="outlined"
             hidden
+            type="password"
             value={confirmPassword}
             label="Confirm Password"
             onChange={handleConfirmPasswordChange}

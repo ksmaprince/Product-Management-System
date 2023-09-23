@@ -8,10 +8,16 @@ import {
   } from "@mui/material";
   import React from "react";
   
-  const LogoutDialog = ({ logoutDialog, setLogoutDialog }) => {
+  const LogoutDialog = ({ logoutDialog, setLogoutDialog, logoutApp }) => {
+  
     const handleCloseDialog = () => {
         setLogoutDialog(false);
     };
+
+    const handleYesLogout = () => {
+      setLogoutDialog(false)
+      logoutApp()
+    }
     return (
       <Dialog open={logoutDialog} onClose={handleCloseDialog}>
         <DialogTitle></DialogTitle>
@@ -23,7 +29,7 @@ import {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseDialog}>Cancel</Button>
-            <Button>Yes</Button>
+            <Button onClick={handleYesLogout}>Yes</Button>
           </DialogActions>
         </Dialog>
       </Dialog>
