@@ -7,16 +7,14 @@ import constant from "../../utils/constant";
 
 const Login = () => {
   const {
-    email,
-    password,
-    handleEmailChange,
-    handlePasswordChange,
+    handleTextChange,
+    loginData,
     handleLogin,
     navigateTo
   } = useLogin();
 
   useEffect(() => {
-    if(localStorage.getItem(constant.KEY) !== null){
+    if (localStorage.getItem(constant.KEY) !== null) {
       navigateTo("/products")
     }
   }, [])
@@ -30,23 +28,29 @@ const Login = () => {
         <Grid item md={8} mt={5}>
           <TextField
             variant="outlined"
-            value={email}
+            name="email"
+            value={loginData.email.value}
             label="Email"
-            onChange={handleEmailChange}
+            onChange={handleTextChange}
             fullWidth
             required
+            error={loginData.email.error}
+            helperText={loginData.email.error && loginData.email.errorMessage}
           />
         </Grid>
         <Grid item md={8} mt={3}>
           <TextField
-           type="password"
+            type="password"
             variant="outlined"
-            value={password}
+            name="password"
+            value={loginData.password.value}
             hidden
             label="Password"
-            onChange={handlePasswordChange}
+            onChange={handleTextChange}
             fullWidth
             required
+            error={loginData.password.error}
+            helperText={loginData.password.error && loginData.password.errorMessage}
           />
         </Grid>
         <Grid item mt={3} md={8}>
