@@ -1,8 +1,6 @@
 // src/OpenAI.js
 import axios from 'axios';
 
-const API_KEY = '';
-
 
 const OpenAI = async (prompt) => {
   try {
@@ -16,7 +14,7 @@ const OpenAI = async (prompt) => {
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
         },
       }
     );

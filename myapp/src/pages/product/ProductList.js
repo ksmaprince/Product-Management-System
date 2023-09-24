@@ -57,6 +57,7 @@ const ProductList = () => {
       return response;
     } catch (error) {
       // Handle error
+      alert(error)
       console.log(error);
     }
   };
