@@ -12,6 +12,7 @@ const useProducts = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [logoutDialog, setLogoutDialog] = useState(false);
+  const [viewDetailDialog,setViewDetailDialog] = useState(false);
   const [productList, setProductList] = useState([]);
   const [isEdit, setIsEdit] = useState(false)
   const navigate = useNavigate()
@@ -43,6 +44,10 @@ const useProducts = () => {
     setIsOpen(false);
   }
 
+  const handleCloseViewDetail = () => {
+    setViewDetailDialog(false);
+  }
+
   const handleAddProduct = () => {
     setProductData({
       id: "",
@@ -63,6 +68,10 @@ const useProducts = () => {
 
   const handleLogoutDialog = () => {
     setLogoutDialog(true);
+  }
+
+  const handleViewDetailDialog = () => {
+    setViewDetailDialog(true);
   }
 
   const logoutApp = () => {
@@ -126,11 +135,14 @@ const useProducts = () => {
 
   return {
     isOpen,
+    viewDetailDialog,
     setIsOpen,
     dialogOpen,
     logoutDialog,
+    setViewDetailDialog,
     logoutApp,
     handleLogoutDialog,
+    handleCloseViewDetail,
     setLogoutDialog,
     setDialogOpen,
     handleOpenModal,
@@ -142,6 +154,7 @@ const useProducts = () => {
     loadProducts,
     handleAddProduct,
     handleLogoutDialog,
+    handleViewDetailDialog,
     productList,
     deleteProduct,
     handleEditProduct,
