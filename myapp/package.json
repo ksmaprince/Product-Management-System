@@ -15,6 +15,7 @@
     "ntd": "^0.0.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
+    "react-chat-widget": "^3.1.4",
     "react-dom": "^18.2.0",
     "react-router": "^6.16.0",
     "react-router-dom": "^6.16.0",

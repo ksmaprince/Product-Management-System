@@ -2,17 +2,26 @@ import { Button, TableCell } from "@mui/material";
 import React from "react";
 import useProducts from "../../pages/product/useProducts";
 import ConfirmationDialog from "../dialogs/ConfirmationDialog";
+import ViewDetail from "../dialogs/ViewDetail";
 
 const ProductDetail = ({ product, removeProduct, editProduct }) => {
-  const { dialogOpen, setDialogOpen, handleOpenDialog } = useProducts();
+  const {
+    dialogOpen,
+    viewDetailDialog,
+    setDialogOpen,
+    handleOpenDialog,
+    setViewDetailDialog,
+    handleViewDetailDialog,
+    handleCloseViewDetail,
+  } = useProducts();
 
   const deleteProduct = () => {
-    removeProduct(product.id)
-  }
+    removeProduct(product.id);
+  };
 
   const handleEditProduct = () => {
-    editProduct(product)
-  }
+    editProduct(product);
+  };
 
   return (
     <>
@@ -21,8 +30,12 @@ const ProductDetail = ({ product, removeProduct, editProduct }) => {
       <TableCell>{product.origin}</TableCell>
       <TableCell>{product.isInstock ? "In Stock" : "Out of Stock"}</TableCell>
       <TableCell>
-        <Button onClick={handleOpenDialog} variant="outlined" color="error">
-          Delete
+        <Button
+          onClick={handleViewDetailDialog}
+          variant="outlined"
+          color="primary"
+        >
+          View Detail
         </Button>
         <Button
           onClick={handleEditProduct}
@@ -32,11 +45,23 @@ const ProductDetail = ({ product, removeProduct, editProduct }) => {
         >
           Edit
         </Button>
+        <Button
+          style={{ marginLeft: "10px" }}
+          onClick={handleOpenDialog}
+          variant="outlined"
+          color="error"
+        >
+          Delete
+        </Button>
         <ConfirmationDialog
           dialogOpen={dialogOpen}
           setDialogOpen={setDialogOpen}
           deleteProduct={deleteProduct}
         />
+        {/* <ViewDetail
+          dialogOpen={viewDetailDialog}
+          setDialogClose={setViewDetailDialog}
+        /> */}
       </TableCell>
     </>
   );

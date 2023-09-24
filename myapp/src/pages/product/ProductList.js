@@ -1,11 +1,25 @@
 import React, { useEffect } from "react";
-import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import "./Product.css";
 import ProductDetail from "../../components/product/ProductDetail";
 import ProductForm from "../../components/product/ProductForm";
 import LogoutDialog from "../../components/dialogs/LogoutDialog";
 import constant from "../../utils/constant";
 import useProducts from "./useProducts";
+import { Widget, addResponseMessage, addUserMessage } from "react-chat-widget";
+import "react-chat-widget/lib/styles.css";
+import OpenAI from "../../components/openai/OpenAI";
 
 const ProductList = () => {
   const {
@@ -31,11 +45,26 @@ const ProductList = () => {
 
   useEffect(() => {
     if (localStorage.getItem(constant.KEY) === null) {
-      navigate("/")
+      navigate("/");
     } else {
-      loadProducts()
+      loadProducts();
     }
-  }, [])
+  }, []);
+
+  const handleGenerate = async (prompt) => {
+    try {
+      const response = await OpenAI(prompt);
+      return response;
+    } catch (error) {
+      // Handle error
+      console.log(error);
+    }
+  };
+
+  const handleNewUserMessage = async (newMsg) => {
+    const res = await handleGenerate(newMsg);
+    addResponseMessage(res);
+  };
 
   return (
     <Grid container className="productsContainer">
@@ -46,7 +75,11 @@ const ProductList = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Button onClick={handleAddProduct} color="success" variant="contained">
+          <Button
+            onClick={handleAddProduct}
+            color="success"
+            variant="contained"
+          >
             Add New
           </Button>
           <Button
@@ -72,20 +105,40 @@ const ProductList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {productList.map((product) => (
-                <TableRow key={product.id}>
-                  <ProductDetail key={product.id} product={product}
-                    removeProduct={deleteProduct} editProduct={handleEditProduct} />
-                </TableRow>
-              ))}
+              {productList
+                .filter((pro) => pro.isInstock)
+                .map((product) => (
+                  <TableRow key={product.id}>
+                    <ProductDetail
+                      key={product.id}
+                      product={product}
+                      removeProduct={deleteProduct}
+                      editProduct={handleEditProduct}
+                    />
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
       </Grid>
 
-      <ProductForm open={isOpen} setIsOpen={setIsOpen} productData={productData}
-        setProductData={setProductData} createNewProduct={createNewProduct}
-        updateProduct={editProduct} isEdit={isEdit} />
+      <Widget
+        style={{ backgroundColor: "green" }}
+        senderPlaceHolder="Send a message"
+        title="Open AI"
+        subtitle="Ask me whatever you want.."
+        handleNewUserMessage={handleNewUserMessage}
+      />
+
+      <ProductForm
+        open={isOpen}
+        setIsOpen={setIsOpen}
+        productData={productData}
+        setProductData={setProductData}
+        createNewProduct={createNewProduct}
+        updateProduct={editProduct}
+        isEdit={isEdit}
+      />
       <LogoutDialog
         logoutDialog={logoutDialog}
         setLogoutDialog={setLogoutDialog}
