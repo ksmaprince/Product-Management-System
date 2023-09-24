@@ -6,6 +6,9 @@ import ProductForm from "../../components/product/ProductForm";
 import LogoutDialog from "../../components/dialogs/LogoutDialog";
 import constant from "../../utils/constant";
 import useProducts from "./useProducts";
+import { Widget , addResponseMessage, addUserMessage} from "react-chat-widget";
+import 'react-chat-widget/lib/styles.css';
+import OpenAI from "../../components/openai/OpenAI";
 
 const ProductList = () => {
   const {
@@ -34,6 +37,21 @@ const ProductList = () => {
       loadProducts()
     }
   }, [])
+
+  const handleGenerate = async (prompt) => {
+    try {
+      const response = await OpenAI(prompt);
+      return response;
+    } catch (error) {
+      // Handle error
+      console.log(error);
+    }
+  };
+
+  const handleNewUserMessage = async(newMsg) => {
+    const res = await handleGenerate(newMsg);
+    addResponseMessage(res);
+  }
 
   return (
     <Grid container className="productsContainer">
@@ -80,6 +98,9 @@ const ProductList = () => {
           </Table>
         </TableContainer>
       </Grid>
+
+      <Widget style={{backgroundColor:"green"}} senderPlaceHolder="Send a message" title="Open AI" subtitle="Ask me whatever you want.."  handleNewUserMessage={handleNewUserMessage} />
+
 
       <ProductForm open={isOpen} setIsOpen={setIsOpen} productData={productData}
         setProductData={setProductData} createNewProduct={createNewProduct}

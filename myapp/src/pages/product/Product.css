@@ -7,3 +7,17 @@
   width: 50%;
   margin: 50px auto;
 }
+
+.rcw-launcher {
+  background-color: green !important;
+}
+
+.rcw-conversation-container .rcw-header,
+.rcw-close-button {
+  background-color: green !important;
+}
+
+.rcw-client .rcw-message-text{
+  background-color: green !important;
+  color: #fff !important;
+}
