@@ -6,6 +6,7 @@ import constant from "../../utils/constant";
 const useLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {login} = authService()
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
@@ -17,7 +18,7 @@ const useLogin = () => {
   };
 
   const handleLogin = async () => {
-    const res = await authService.login({email, password})
+    const res = await login({email, password})
     if(res){
       if(res.success){
         localStorage.setItem(constant.KEY, res.data)

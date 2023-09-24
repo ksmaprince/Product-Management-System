@@ -6,6 +6,7 @@ const useRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { signup } = authService()
 
   const navigate = useNavigate()
 
@@ -22,12 +23,12 @@ const useRegister = () => {
   };
 
   const handleRegister = async () => {
-    const res= await authService.signup({email, password})
-    if(res){
-      if(res.success){
+    const res = await signup({ email, password })
+    if (res) {
+      if (res.success) {
         alert("Register user successfully!")
         navigate("/")
-      }else{
+      } else {
         alert(res.error)
       }
     }

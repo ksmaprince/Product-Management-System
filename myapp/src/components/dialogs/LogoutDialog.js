@@ -1,40 +1,32 @@
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-  } from "@mui/material";
-  import React from "react";
-  
-  const LogoutDialog = ({ logoutDialog, setLogoutDialog, logoutApp }) => {
-  
-    const handleCloseDialog = () => {
-        setLogoutDialog(false);
-    };
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import React from "react";
 
-    const handleYesLogout = () => {
-      setLogoutDialog(false)
-      logoutApp()
-    }
-    return (
-      <Dialog open={logoutDialog} onClose={handleCloseDialog}>
-        <DialogTitle></DialogTitle>
-        <Dialog open={logoutDialog}>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure to logout?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog}>Cancel</Button>
-            <Button onClick={handleYesLogout}>Yes</Button>
-          </DialogActions>
-        </Dialog>
-      </Dialog>
-    );
+const LogoutDialog = ({ logoutDialog, setLogoutDialog, logoutApp }) => {
+
+  const handleCloseDialog = () => {
+    setLogoutDialog(false);
   };
-  
-  export default LogoutDialog;
-  
+
+  const handleYesLogout = () => {
+    setLogoutDialog(false)
+    logoutApp()
+  }
+  return (
+    <Dialog open={logoutDialog} onClose={handleCloseDialog}>
+      <DialogTitle></DialogTitle>
+      <Dialog open={logoutDialog}>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure to logout?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button onClick={handleYesLogout}>Yes</Button>
+        </DialogActions>
+      </Dialog>
+    </Dialog>
+  );
+};
+
+export default LogoutDialog;

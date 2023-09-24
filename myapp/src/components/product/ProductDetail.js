@@ -10,6 +10,10 @@ const ProductDetail = ({ product, removeProduct, editProduct }) => {
     removeProduct(product.id)
   }
 
+  const handleEditProduct = () => {
+    editProduct(product)
+  }
+
   return (
     <>
       <TableCell>{product.name}</TableCell>
@@ -21,7 +25,7 @@ const ProductDetail = ({ product, removeProduct, editProduct }) => {
           Delete
         </Button>
         <Button
-        onClick={editProduct}
+          onClick={handleEditProduct}
           style={{ marginLeft: "10px" }}
           variant="outlined"
           color="primary"

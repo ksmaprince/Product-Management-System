@@ -1,111 +1,31 @@
-import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import React, { useEffect } from "react";
+import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, } from "@mui/material";
 import "./Product.css";
 import ProductDetail from "../../components/product/ProductDetail";
 import ProductForm from "../../components/product/ProductForm";
 import LogoutDialog from "../../components/dialogs/LogoutDialog";
-import productService from "../../servies/productService"
 import constant from "../../utils/constant";
-import { useNavigate } from "react-router";
+import useProducts from "./useProducts";
 
 const ProductList = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [logoutDialog, setLogoutDialog] = useState(false);
-  const [productList, setProductList] = useState([]);
-  const navigate = useNavigate()
-  
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  };
-
-  const handleOpenDialog = () => {
-    setDialogOpen(true);
-  }
-
-  const handleCloseModal = () => {
-    setIsOpen(false);
-  }
-
-  const handleLogoutDialog = () => {
-    setLogoutDialog(true);
-  }
-
-  const logoutApp = () => {
-    localStorage.clear()
-    navigate("/")
-  }
-
-  const loadProducts = async () => {
-    const res = await productService.getAllProducts(localStorage.getItem(constant.KEY))
-    if (res) {
-      if (res.success) {
-        setProductList(res.data)
-      } else {
-        alert(res.error)
-      }
-    }
-  }
-
-  const getProduct = async (id) => {
-    const res = await productService.getProduct(localStorage.getItem(constant.KEY), id)
-    if (res) {
-      if (res.success) {
-        
-      } else {
-        
-      }
-    }
-  }
-
-  const createNewProduct = async (productData) => {
-    const res = await productService.createProduct(localStorage.getItem(constant.KEY), productData)
-    if(res){
-      if(res.success){
-        loadProducts()
-        return true
-      }else{
-        return false
-      }
-    }
-    return false
-  }
-
-  const updateProduct = async (id, productData) => {
-    const res = await productService.updateProduct(localStorage.getItem(constant.KEY), id, productData)
-    if(res){
-      if(res.success){
-        loadProducts()
-        return true
-      }else{
-        return false
-      }
-    }
-    return false
-  }
-
-  const removeProduct = async (id) => {
-    const res = await productService.removeProduct(localStorage.getItem(constant.KEY), id)
-    if (res) {
-      console.log(res)
-      if (res.success) {
-        loadProducts()
-      }else{
-        alert(res.error)
-      }
-    }
-  }
+  const {
+    isOpen,
+    setIsOpen,
+    logoutDialog,
+    setLogoutDialog,
+    logoutApp,
+    navigate,
+    loadProducts,
+    handleAddProduct,
+    handleLogoutDialog,
+    productList,
+    deleteProduct,
+    handleEditProduct,
+    productData,
+    setProductData,
+    createNewProduct,
+    editProduct,
+    isEdit } = useProducts()
 
   useEffect(() => {
     if (localStorage.getItem(constant.KEY) === null) {
@@ -124,7 +44,7 @@ const ProductList = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Button onClick={handleOpenModal} color="success" variant="contained">
+          <Button onClick={handleAddProduct} color="success" variant="contained">
             Add New
           </Button>
           <Button
@@ -152,7 +72,8 @@ const ProductList = () => {
             <TableBody>
               {productList.map((product) => (
                 <TableRow key={product.id}>
-                  <ProductDetail key={product.id} product={product} removeProduct={removeProduct} editProduct = {handleOpenModal} />
+                  <ProductDetail key={product.id} product={product}
+                    removeProduct={deleteProduct} editProduct={handleEditProduct} />
                 </TableRow>
               ))}
             </TableBody>
@@ -160,7 +81,9 @@ const ProductList = () => {
         </TableContainer>
       </Grid>
 
-      <ProductForm open={isOpen} setIsOpen={setIsOpen} createNewProduct={createNewProduct} />
+      <ProductForm open={isOpen} setIsOpen={setIsOpen} productData={productData}
+        setProductData={setProductData} createNewProduct={createNewProduct}
+        updateProduct={editProduct} isEdit={isEdit} />
       <LogoutDialog
         logoutDialog={logoutDialog}
         setLogoutDialog={setLogoutDialog}
