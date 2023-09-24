@@ -25,7 +25,9 @@ const ProductList = () => {
     setProductData,
     createNewProduct,
     editProduct,
-    isEdit } = useProducts()
+    isEdit,
+    productValidation,
+    setProductValidation } = useProducts()
 
   useEffect(() => {
     if (localStorage.getItem(constant.KEY) === null) {
@@ -66,7 +68,7 @@ const ProductList = () => {
                 <TableCell>Price</TableCell>
                 <TableCell>Origin</TableCell>
                 <TableCell>Instock</TableCell>
-                <TableCell></TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

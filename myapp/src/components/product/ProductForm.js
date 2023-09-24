@@ -1,19 +1,27 @@
 import { Button, Checkbox, FormControlLabel, Grid, Modal, Paper, TextField } from "@mui/material";
 import "./../../pages/product/Product.css";
 
-const ProductForm = ({ open, setIsOpen, productData, setProductData, createNewProduct, updateProduct, isEdit }) => {
+const ProductForm = ({ open, setIsOpen, productData,
+  setProductData, createNewProduct, updateProduct, isEdit  }) => {
 
   const handleProductChange = (e) => {
     setProductData({ ...productData, [e.target.name]: e.target.value });
   };
 
-  const handleButtonClick = () => {
-    if (isEdit) {
-      updateProduct(productData)
-    } else {
-      createNewProduct(productData)
-    }
+  const handleCheckChange = () => {
+    setProductData({ ...productData, "isInstock": !productData.isInstock })
   }
+
+  const handleButtonClick = () => {
+
+      if (isEdit) {
+        updateProduct(productData)
+      } else {
+        createNewProduct(productData)
+      }
+    
+  }
+
 
   return (
     <Modal
@@ -63,9 +71,8 @@ const ProductForm = ({ open, setIsOpen, productData, setProductData, createNewPr
             control={
               <Checkbox
                 color="success"
-                name="isInstock"
-                value={productData.isInstock}
-                onChange={handleProductChange}
+                checked={productData.isInstock ? true : false}
+                onChange={handleCheckChange}
               />
             }
           />

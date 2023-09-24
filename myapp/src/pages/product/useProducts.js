@@ -115,7 +115,6 @@ const useProducts = () => {
   const deleteProduct = async (id) => {
     const res = await removeProduct(localStorage.getItem(constant.KEY), id)
     if (res) {
-      console.log(res)
       if (res.success) {
         loadProducts()
       } else {

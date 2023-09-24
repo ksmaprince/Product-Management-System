@@ -19,7 +19,7 @@ const ProductDetail = ({ product, removeProduct, editProduct }) => {
       <TableCell>{product.name}</TableCell>
       <TableCell>{product.price}</TableCell>
       <TableCell>{product.origin}</TableCell>
-      <TableCell>{product.instock ? "In Stock" : "Out of Stock"}</TableCell>
+      <TableCell>{product.isInstock ? "In Stock" : "Out of Stock"}</TableCell>
       <TableCell>
         <Button onClick={handleOpenDialog} variant="outlined" color="error">
           Delete

@@ -6,13 +6,9 @@ import { Link } from "react-router-dom";
 
 const Register = () => {
   const {
-    email,
-    password,
-    confirmPassword,
-    handleEmailChange,
-    handlePasswordChange,
-    handleConfirmPasswordChange,
+    userData,
     handleRegister,
+    handleTextChange
   } = useRegister();
 
   return (
@@ -25,35 +21,45 @@ const Register = () => {
         <Grid item md={8} mt={5}>
           <TextField
             variant="outlined"
-            value={email}
+            value={userData.email.value}
+            name="email"
+            type="email"
             label="Email"
-            onChange={handleEmailChange}
+            onChange={handleTextChange}
             fullWidth
             required
+            error={userData.email.error}
+            helperText={userData.email.error && userData.email.errorMessage}
           />
         </Grid>
         <Grid item md={8} mt={3}>
           <TextField
             variant="outlined"
-            value={password}
+            value={userData.password.value}
             hidden
+            name="password"
             type="password"
             label="Password"
-            onChange={handlePasswordChange}
+            onChange={handleTextChange}
             fullWidth
             required
+            error={userData.password.error}
+            helperText={userData.password.error && userData.password.errorMessage}
           />
         </Grid>
         <Grid item md={8} mt={3}>
           <TextField
             variant="outlined"
             hidden
+            name="confirmPassword"
             type="password"
-            value={confirmPassword}
+            value={userData.confirmPassword.value}
             label="Confirm Password"
-            onChange={handleConfirmPasswordChange}
+            onChange={handleTextChange}
             fullWidth
             required
+            error={userData.confirmPassword.error}
+            helperText={userData.confirmPassword.error && userData.confirmPassword.errorMessage}
           />
         </Grid>
         <Grid item mt={3} md={8}>
