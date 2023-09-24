@@ -1,7 +1,7 @@
 // src/OpenAI.js
 import axios from 'axios';
 
-const API_KEY = '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'; // Replace with your GPT-3 API key
+const API_KEY = '';
 
 
 const OpenAI = async (prompt) => {
