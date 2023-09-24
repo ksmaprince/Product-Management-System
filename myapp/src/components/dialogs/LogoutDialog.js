@@ -14,7 +14,6 @@ const LogoutDialog = ({ logoutDialog, setLogoutDialog, logoutApp }) => {
   return (
     <Dialog open={logoutDialog} onClose={handleCloseDialog}>
       <DialogTitle></DialogTitle>
-      <Dialog open={logoutDialog}>
         <DialogContent>
           <DialogContentText>
             Are you sure to logout?
@@ -24,7 +23,6 @@ const LogoutDialog = ({ logoutDialog, setLogoutDialog, logoutApp }) => {
           <Button onClick={handleCloseDialog}>Cancel</Button>
           <Button onClick={handleYesLogout}>Yes</Button>
         </DialogActions>
-      </Dialog>
     </Dialog>
   );
 };

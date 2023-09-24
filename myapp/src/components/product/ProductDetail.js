@@ -58,10 +58,10 @@ const ProductDetail = ({ product, removeProduct, editProduct }) => {
           setDialogOpen={setDialogOpen}
           deleteProduct={deleteProduct}
         />
-        {/* <ViewDetail
+        <ViewDetail
           dialogOpen={viewDetailDialog}
           setDialogClose={setViewDetailDialog}
-        /> */}
+        />
       </TableCell>
     </>
   );
