@@ -2,14 +2,14 @@ import axios from "axios"
 const authService = () => {
     axios.defaults.baseURL = "http://localhost:5001/"
 
-    const login =  ({email, password}) => {
-        const request = axios.post("/login", {email, password})
-        return request.then(response => response.data)
+    const login =  async({email, password}) => {
+        const {data} = await axios.post("/login", {email, password})
+        return data;
     }
     
     const signup = async ({email, password}) => {
-        const request = axios.post("/signup", {email, password})
-        return request.then(response => response.data)
+        const {data} = await  axios.post("/signup", {email, password})
+        return data;
     }
     
     return{
