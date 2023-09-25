@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const ViewDetail = ({ dialogOpen, setDialogClose }) => {
+const ViewDetail = ({ dialogOpen, setDialogClose, product}) => {
   const handleCloseDialog = () => {
     setDialogClose(false);
   };
@@ -28,17 +28,17 @@ const ViewDetail = ({ dialogOpen, setDialogClose }) => {
             <Grid item style={{ color: "green" }}>
               Name:
             </Grid>
-            <Grid item>Iphone</Grid>
+            <Grid item>{product.name}</Grid>
             <Grid item style={{ color: "green" }}>
               Price:
             </Grid>
-            <Grid item>1200</Grid>
+            <Grid item>{product.price}</Grid>
             <Grid item style={{ color: "green" }}>
               Origin:
             </Grid>
-            <Grid item>Apple</Grid>
+            <Grid item>{product.origin}</Grid>
             <Grid item style={{ color: "green" }}>Availability:</Grid>
-            <Grid item>Instock</Grid>
+            <Grid item>{product.isInstock?"Instock":"Out of stock"}</Grid>
           </Grid>
         </DialogContentText>
       </DialogContent>

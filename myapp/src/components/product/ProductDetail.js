@@ -61,6 +61,7 @@ const ProductDetail = ({ product, removeProduct, editProduct }) => {
         <ViewDetail
           dialogOpen={viewDetailDialog}
           setDialogClose={setViewDetailDialog}
+          product={product}
         />
       </TableCell>
     </>
