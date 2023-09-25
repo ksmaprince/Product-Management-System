@@ -2,8 +2,19 @@
   "name": "myapp",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs",
+      "^.+\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    },
+    "testEnvironment": "jsdom"
+  },
   "dependencies": {
     "@babel/core": "^7.22.20",
+    "@babel/plugin-syntax-jsx": "^7.22.5",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
@@ -13,8 +24,8 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.5.0",
-    "babel-jest": "^29.7.0",
-    "jest": "^27.5.1",
+    "jest-dom": "^4.0.0",
+    "jsdom": "^22.1.0",
     "ntd": "^0.0.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
@@ -28,7 +39,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -50,6 +61,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
+    "babel-jest": "^29.7.0",
+    "jest": "^27.5.1",
     "react-test-renderer": "^18.2.0"
   }
 }

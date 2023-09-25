@@ -29,6 +29,7 @@ const Login = () => {
           <TextField
             variant="outlined"
             name="email"
+            data-testid="email"
             value={loginData.email.value}
             label="Email"
             onChange={handleTextChange}
@@ -41,6 +42,7 @@ const Login = () => {
         <Grid item md={8} mt={3}>
           <TextField
             type="password"
+            data-testid="password"
             variant="outlined"
             name="password"
             value={loginData.password.value}
