@@ -18,6 +18,7 @@ const Login = () => {
       navigateTo("/products")
     }
   }, [])
+
   return (
     <div className="loginContainer">
       <Grid container className="loginWrapper">
@@ -29,6 +30,7 @@ const Login = () => {
           <TextField
             variant="outlined"
             name="email"
+            data-testid="email"
             value={loginData.email.value}
             label="Email"
             onChange={handleTextChange}
@@ -41,6 +43,7 @@ const Login = () => {
         <Grid item md={8} mt={3}>
           <TextField
             type="password"
+            data-testid="password"
             variant="outlined"
             name="password"
             value={loginData.password.value}
@@ -59,6 +62,7 @@ const Login = () => {
             fullWidth
             variant="contained"
             onClick={handleLogin}
+            disabled={!loginData.email.value || !loginData.password.value }
           >
             Login
           </Button>
