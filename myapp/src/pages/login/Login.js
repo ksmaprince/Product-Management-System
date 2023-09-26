@@ -18,6 +18,7 @@ const Login = () => {
       navigateTo("/products")
     }
   }, [])
+
   return (
     <div className="loginContainer">
       <Grid container className="loginWrapper">
@@ -61,6 +62,7 @@ const Login = () => {
             fullWidth
             variant="contained"
             onClick={handleLogin}
+            disabled={!loginData.email.value || !loginData.password.value }
           >
             Login
           </Button>
