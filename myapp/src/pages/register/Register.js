@@ -5,11 +5,7 @@ import useRegister from "./useRegister";
 import { Link } from "react-router-dom";
 
 const Register = () => {
-  const {
-    userData,
-    handleRegister,
-    handleTextChange
-  } = useRegister();
+  const { userData, handleRegister, handleTextChange } = useRegister();
 
   return (
     <div className="loginContainer">
@@ -37,6 +33,7 @@ const Register = () => {
             variant="outlined"
             value={userData.password.value}
             hidden
+            data-testid="Password"
             name="password"
             type="password"
             label="Password"
@@ -44,7 +41,9 @@ const Register = () => {
             fullWidth
             required
             error={userData.password.error}
-            helperText={userData.password.error && userData.password.errorMessage}
+            helperText={
+              userData.password.error && userData.password.errorMessage
+            }
           />
         </Grid>
         <Grid item md={8} mt={3}>
@@ -59,7 +58,10 @@ const Register = () => {
             fullWidth
             required
             error={userData.confirmPassword.error}
-            helperText={userData.confirmPassword.error && userData.confirmPassword.errorMessage}
+            helperText={
+              userData.confirmPassword.error &&
+              userData.confirmPassword.errorMessage
+            }
           />
         </Grid>
         <Grid item mt={3} md={8}>
@@ -67,6 +69,11 @@ const Register = () => {
             color="success"
             fullWidth
             variant="contained"
+            disabled={
+              !userData.email.value ||
+              !userData.password.value ||
+              !userData.confirmPassword.value
+            }
             onClick={handleRegister}
           >
             Register
