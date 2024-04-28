@@ -1,0 +1,1 @@
+A CRUD Web application project to manage product stock. Working with a team. I was a front-end developer and developed web page screens for some features. Utilized React, Express, NodeJS, JavaScript.![image](https://github.com/ksmaprince/Product-Management-System/assets/87984739/0431843e-2665-46f3-b5d2-46624f8106e2)
